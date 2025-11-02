@@ -7,7 +7,7 @@ const getUserAvatar = (id: string) => {
 
 export const MOCK_USER: User = {
   name: "Sarah Miller",
-  email: "sarah.miller@omnicom.io",
+  email: "demo@omnicom.io",
   ...(() => {
     const { imageUrl, imageHint } = getUserAvatar('userAvatar1');
     return { avatarUrl: imageUrl, avatarHint: imageHint };
