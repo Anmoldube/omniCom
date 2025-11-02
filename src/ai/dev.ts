@@ -1,1 +1,6 @@
-// Flows will be imported for their side effects in this file.
+import { config } from 'dotenv';
+config();
+
+import '@/ai/flows/route-messages-via-appropriate-channel.ts';
+import '@/ai/flows/summarize-conversation-history.ts';
+import '@/ai/flows/suggest-contact-tags.ts';

@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "userAvatar1",
+      "description": "User avatar for the current user",
+      "imageUrl": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MjAzMDE4OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "contact1",
+      "description": "Avatar for Liam Johnson",
+      "imageUrl": "https://images.unsplash.com/photo-1639747280804-dd2d6b3d88ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtYW4lMjBzbWlsaW5nfGVufDB8fHx8MTc2MjAzNDI3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man smiling"
+    },
+    {
+      "id": "contact2",
+      "description": "Avatar for Olivia Smith",
+      "imageUrl": "https://images.unsplash.com/photo-1573496527892-904f897eb744?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3b21hbiUyMHByb2Zlc3Npb25hbHxlbnwwfHx8fDE3NjIwNTcxNDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman professional"
+    },
+    {
+      "id": "contact3",
+      "description": "Avatar for Noah Williams",
+      "imageUrl": "https://images.unsplash.com/photo-1678724755867-74cb720b99bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYW4lMjBvdXRzaWRlfGVufDB8fHx8MTc2MjAxNzYwNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man outside"
+    },
+    {
+      "id": "contact4",
+      "description": "Avatar for Emma Brown",
+      "imageUrl": "https://images.unsplash.com/photo-1524255684952-d7185b509571?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGdsYXNzZXN8ZW58MHx8fHwxNzYyMDIyMzQ4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman glasses"
+    },
+    {
+      "id": "contact5",
+      "description": "Avatar for James Jones",
+      "imageUrl": "https://images.unsplash.com/photo-1626362393027-d721d524ec44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtYW4lMjBsb29raW5nJTIwYXdheXxlbnwwfHx8fDE3NjIwMTEwMzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man looking away"
+    }
+  ]
 }
