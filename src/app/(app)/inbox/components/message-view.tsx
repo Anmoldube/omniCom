@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { format } from 'date-fns';
-import { Paperclip, Send, Smile, User, Info } from 'lucide-react';
+import { Paperclip, Send, Smile, User, Info, Sparkles } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,6 +21,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { suggestReplies } from '@/ai/flows/suggest-replies';
 
 type MessageViewProps = {
   conversation: Conversation | null;
@@ -30,6 +31,9 @@ type MessageViewProps = {
 export function MessageView({ conversation, onNewMessage }: MessageViewProps) {
   const [message, setMessage] = React.useState('');
   const [isProfileOpen, setProfileOpen] = React.useState(false);
+  const [suggestions, setSuggestions] = React.useState<string[]>([]);
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = React.useState(false);
+
   const scrollAreaRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -41,11 +45,38 @@ export function MessageView({ conversation, onNewMessage }: MessageViewProps) {
     }
   }, [conversation]);
 
+  React.useEffect(() => {
+    const getSuggestions = async () => {
+      if (conversation && conversation.messages.length > 0) {
+        const lastMessage = conversation.messages[conversation.messages.length - 1];
+        if (!lastMessage.isSender) {
+          setIsLoadingSuggestions(true);
+          setSuggestions([]);
+          try {
+            const result = await suggestReplies({ lastMessage: lastMessage.content });
+            setSuggestions(result.replies);
+          } catch (error) {
+            console.error('Error fetching suggestions:', error);
+            setSuggestions([]);
+          } finally {
+            setIsLoadingSuggestions(false);
+          }
+        } else {
+          setSuggestions([]);
+        }
+      } else {
+        setSuggestions([]);
+      }
+    };
+    getSuggestions();
+  }, [conversation]);
+
 
   const handleSendMessage = () => {
     if (message.trim() && conversation) {
       onNewMessage(conversation.id, message.trim());
       setMessage('');
+      setSuggestions([]);
     }
   };
 
@@ -126,7 +157,30 @@ export function MessageView({ conversation, onNewMessage }: MessageViewProps) {
           ))}
         </div>
       </ScrollArea>
-      <div className="border-t bg-background p-4">
+      <div className="border-t bg-background p-4 space-y-3">
+        {(isLoadingSuggestions || suggestions.length > 0) && (
+            <div className="flex items-center gap-2 flex-wrap">
+                <Sparkles className="h-4 w-4 text-muted-foreground" />
+                {isLoadingSuggestions ? (
+                    <>
+                        <Button variant="outline" size="sm" className="opacity-50" disabled>Loading...</Button>
+                        <Button variant="outline" size="sm" className="opacity-50 hidden sm:inline-flex" disabled>Loading...</Button>
+                    </>
+                ) : (
+                    suggestions.map((suggestion, i) => (
+                        <Button
+                            key={i}
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setMessage(suggestion)}
+                            className="text-left"
+                        >
+                            {suggestion}
+                        </Button>
+                    ))
+                )}
+            </div>
+        )}
         <div className="relative">
           <Textarea
             placeholder="Type your message..."
