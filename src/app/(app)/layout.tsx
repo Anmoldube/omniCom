@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   SidebarProvider,
   Sidebar,
@@ -25,7 +25,6 @@ import {
 import type { NavItem } from '@/lib/types';
 import { Logo } from '@/components/logo';
 import { UserNav } from '@/components/user-nav';
-import { Separator } from '@/components/ui/separator';
 
 const navItems: NavItem[] = [
   { href: '/inbox', title: 'Inbox', icon: Inbox },
@@ -36,6 +35,17 @@ const navItems: NavItem[] = [
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = React.useState<boolean | null>(null);
+
+  React.useEffect(() => {
+    // Simulate checking authentication status
+    const authStatus = localStorage.getItem('isAuthenticated') === 'true';
+    setIsAuthenticated(authStatus);
+    if (!authStatus) {
+      router.push('/login');
+    }
+  }, [router]);
 
   // A simple theme toggle implementation
   const [theme, setTheme] = React.useState('light');
@@ -46,6 +56,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const toggleTheme = () => {
     setTheme(current => (current === 'light' ? 'dark' : 'light'));
   };
+
+  if (isAuthenticated === null) {
+    // You can render a loading spinner here
+    return null;
+  }
+  
+  if (!isAuthenticated) {
+    // This will be handled by the redirect, but as a fallback
+    return null;
+  }
 
   return (
     <SidebarProvider>
