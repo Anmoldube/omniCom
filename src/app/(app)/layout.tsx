@@ -39,11 +39,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = React.useState<boolean | null>(null);
 
   React.useEffect(() => {
-    // Simulate checking authentication status
-    const authStatus = localStorage.getItem('isAuthenticated') === 'true';
-    setIsAuthenticated(authStatus);
-    if (!authStatus) {
-      router.push('/login');
+    // This check should only run on the client side
+    if (typeof window !== 'undefined') {
+        const authStatus = localStorage.getItem('isAuthenticated') === 'true';
+        setIsAuthenticated(authStatus);
+        if (!authStatus) {
+            router.push('/login');
+        }
     }
   }, [router]);
 

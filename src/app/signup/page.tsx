@@ -8,41 +8,47 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Logo } from '@/components/logo';
 
-export default function LoginPage() {
+export default function SignupPage() {
   const router = useRouter();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = () => {
-    // Simple validation
-    if (!email || !password) {
-      setError('Please enter both email and password.');
+  const handleSignup = () => {
+    if (!name || !email || !password) {
+      setError('Please fill in all fields.');
       return;
     }
-    
-    // Simulate a login
-    // In a real app, you would call an API to verify credentials
-    if (email === 'demo@omnicom.io' && password === 'password') {
-      localStorage.setItem('isAuthenticated', 'true');
-      router.push('/inbox');
-    } else {
-      setError('Invalid email or password.');
-    }
+    // Simulate a signup process
+    console.log('Simulating signup for:', { name, email });
+    // In a real app, you would call an API to create a new user.
+    // For this prototype, we'll just redirect to the login page.
+    router.push('/login');
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-            <div className="flex justify-center mb-4">
-                <Logo />
-            </div>
-          <CardTitle className="font-headline text-2xl">Welcome Back</CardTitle>
-          <CardDescription>Enter your credentials to access your account</CardDescription>
+          <div className="flex justify-center mb-4">
+            <Logo />
+          </div>
+          <CardTitle className="font-headline text-2xl">Create an account</CardTitle>
+          <CardDescription>Enter your information to get started</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                placeholder="Your Name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -55,34 +61,29 @@ export default function LoginPage() {
               />
             </div>
             <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <a href="#" className="ml-auto inline-block text-sm underline">
-                  Forgot your password?
-                </a>
-              </div>
+              <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+                onKeyDown={(e) => e.key === 'Enter' && handleSignup()}
               />
             </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button onClick={handleLogin} className="w-full">
-              Sign in
+            <Button onClick={handleSignup} className="w-full">
+              Create account
             </Button>
           </div>
         </CardContent>
         <CardFooter>
-            <div className="text-center text-sm text-muted-foreground w-full">
-                Don&apos;t have an account?{' '}
-                <a href="/signup" className="underline">
-                    Sign up
-                </a>
-            </div>
+          <div className="text-center text-sm text-muted-foreground w-full">
+            Already have an account?{' '}
+            <a href="/login" className="underline">
+              Sign in
+            </a>
+          </div>
         </CardFooter>
       </Card>
     </div>
